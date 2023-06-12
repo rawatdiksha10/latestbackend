@@ -6,13 +6,13 @@ import { Session } from "express-session";
 
 const router = express.Router();
 
-interface CustomSession extends Session {
-    user: {
-      userid: string;
-      name: string;
-      roleflg: number;
-    };
-  }
+// interface CustomSession extends Session {
+//     user: {
+//       userid: string;
+//       name: string;
+//       roleflg: number;
+//     };
+//   }
 
 router.post("/login", async (req, res) => {
 
@@ -25,9 +25,9 @@ router.post("/login", async (req, res) => {
     .then(async (u:any) => {
         if (u) {
             resp = { userid:req.body.userid, name:u.name, role:u.roleflg, sessionId:req.sessionID };
-            // req.session.user = { userid:req.body.userid, name:u.name, roleflg:u.roleflg };
-            const session = req.session as CustomSession;
-            session.user = { userid: req.body.userid, name: u.name, roleflg: u.roleflg };
+            req.session.user = { userid:req.body.userid, name:u.name, roleflg:u.roleflg };
+            // const session = req.session as CustomSession;
+            // session.user = { userid: req.body.userid, name: u.name, roleflg: u.roleflg };
         }
     })
     await res.send(resp);
@@ -89,8 +89,8 @@ router.post("/resetpwdinit", async (req, res) => {
 });
 
 router.get("/checkAuthorization", async (req, res) => {
-    const session = req.session as CustomSession;
-    await res.send(session.user);
+    // const session = req.session as CustomSession;
+    await res.send(req.session.user);
 });
 
 router.delete("/logout/:id", async (req, res) => {
