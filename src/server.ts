@@ -58,7 +58,7 @@ app.use(
   })
 );
 
-app.listen(env.PORT, () => console.log("Server running on port: " + env.PORT));
+app.listen("https://latestfrontend.vercel.app", () => console.log("Server running on port: " + "https://latestfrontend.vercel.app"));
 app.use('/api/account', account);
 app.use('/api/skill', jm);
 app.use('/api', main);
