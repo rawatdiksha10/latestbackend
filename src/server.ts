@@ -44,8 +44,7 @@ app.use(
   session({
     name: env.SESSION_COOKIE_NAME,
     secret: env.SESSION_SECRET,
-    rolling: true,
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     store: mongoDBstore,
     cookie: {
